@@ -1,0 +1,16 @@
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+.card.dark-mode {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.hover-zoom {
+  transition: transform 0.2s;
+}
+.hover-zoom:hover {
+  transform: scale(1.03);
+}
