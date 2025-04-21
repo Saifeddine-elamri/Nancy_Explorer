@@ -130,9 +130,7 @@ class LieuController {
     }
 
     public function show($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM lieu WHERE id = :id");
-        $stmt->execute(['id' => $id]);
-        $lieu = $stmt->fetch();
+        $lieu = $this->lieuModel->getLieuById($id);
     
         if (!$lieu) {
             http_response_code(404);
@@ -141,9 +139,8 @@ class LieuController {
         }
     
         // Optionnel : charger les transports, etc.
-        $transports = getTransportsForLieu($this->pdo, $id);
     
-        require_once DIR . '/../views/lieu/show.php'; // crée ce fichier
+        require __DIR__ . '/../views/lieu/show.php';
     }
     
 

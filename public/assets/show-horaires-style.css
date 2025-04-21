@@ -1,0 +1,16 @@
+/* Accordéon personnalisé */
+.custom-accordion .accordion-button {
+    border-radius: var(--border-radius-sm) !important;
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .custom-accordion .accordion-button:not(.collapsed) {
+    background-color: rgba(74, 107, 255, 0.05);
+    color: var(--primary-color);
+    box-shadow: none;
+  }
+  
+  .custom-accordion .accordion-body {
+    padding: 1rem;
+  }

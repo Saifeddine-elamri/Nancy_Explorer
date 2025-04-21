@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🌆 Nancy Explorer</title>
+  <link href="/assets/show-style.css" rel="stylesheet">
+  <link href="/assets/show-horaires-style.css" rel="stylesheet">
   <link href="/assets/header-style.css" rel="stylesheet">
   <link href="/assets/footer-style.css" rel="stylesheet">
   <link href="/assets/style.css" rel="stylesheet">

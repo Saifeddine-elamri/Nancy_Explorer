@@ -52,9 +52,13 @@ $truncatedDescription = $isLongDescription ?
       <div class="card-body">
         <!-- Titre avec lien -->
         <h5 class="card-title" id="lieu-title-<?= $lieuId ?>">
-          <a href="/<?= $lieuNom ?>" class="stretched-link title-link text-decoration-none">
+          <a href="<?= htmlspecialchars('/' . str_replace(' ', '-', $lieuNom) . '/' . $lieuId, ENT_QUOTES, 'UTF-8') ?>" 
+            class="stretched-link title-link text-decoration-none">
             <?= htmlspecialchars($lieuNom, ENT_QUOTES, 'UTF-8') ?>
           </a>
+        </h5>
+
+
         </h5>
         
         <!-- Description avec option "lire plus" -->

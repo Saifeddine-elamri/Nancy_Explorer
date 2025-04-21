@@ -45,11 +45,56 @@ class Lieu {
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
-
     // Récupérer tous les transports disponibles
     public function getTransports() {
         $stmt = $this->pdo->prepare("SELECT * FROM transport");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // Récupérer un lieu spécifique par son ID
+// Récupérer un lieu spécifique par son ID (avec type_nom + menu si applicable)
+public function getLieuById($id) {
+    // Récupère le lieu avec le nom du type (nécessaire pour savoir si c'est un restaurant, café, ou bar)
+    $stmt = $this->pdo->prepare("
+        SELECT lieu.*, type_lieu.nom AS type_nom 
+        FROM lieu 
+        LEFT JOIN type_lieu ON lieu.type_id = type_lieu.id 
+        WHERE lieu.id = :id
+    ");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $lieu = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Vérifie si c'est un café / restaurant / bar
+    $isCafeOrRestaurantOrBar = in_array(strtolower($lieu['type_nom'] ?? ''), ['café', 'restaurant', 'bar']);
+
+    // Initialise menu
+    $lieu['menu'] = [];
+
+    if ($isCafeOrRestaurantOrBar) {
+        try {
+            $stmtCheck = $this->pdo->query("SHOW TABLES LIKE 'menu_items'");
+            if ($stmtCheck->rowCount() > 0) {
+                $sqlMenu = "SELECT category, item_name, description, price FROM menu_items WHERE lieu_id = ? ORDER BY category, item_name";
+                $stmtMenu = $this->pdo->prepare($sqlMenu);
+                $stmtMenu->execute([$id]);
+                $menuItems = $stmtMenu->fetchAll(PDO::FETCH_ASSOC);
+
+                // Regroupe les items par catégorie
+                $menuByCategory = [];
+                foreach ($menuItems as $item) {
+                    $category = $item['category'] ?: 'Général';
+                    $menuByCategory[$category][] = $item;
+                }
+                $lieu['menu'] = $menuByCategory;
+            }
+        } catch (PDOException $e) {
+            // Tu peux logger l'erreur ici si tu veux, sinon on ignore
+        }
+    }
+
+    return $lieu;
+}
+
 }

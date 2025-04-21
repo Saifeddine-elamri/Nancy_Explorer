@@ -71,6 +71,7 @@
 <script defer src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script defer src="/assets/script.js"></script>
 <script src="/assets/footer-script.js"></script>
+<script src="/assets/show-script.js"></script>
 
 </body>
 </html>
