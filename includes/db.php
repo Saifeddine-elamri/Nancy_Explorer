@@ -3,7 +3,7 @@ $host = 'localhost';
 $port = 2001; // Change le port si nécessaire
 $db = 'ville_db';
 $user = 'root';
-$pass = 'root'; // change selon ton serveur
+$pass = 'saif'; // change selon ton serveur
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
